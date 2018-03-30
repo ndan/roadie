@@ -26,6 +26,19 @@ module Roadie
       expect(builder.attribute_string).to eq "background:white;color:pink;color:red;color:green"
     end
 
+    # This is the only test which have to work now. I don't care about other tests because these changes will be removed
+    it "removes duplicated values" do
+      builder = StyleAttributeBuilder.new
+
+      builder << StyleProperty.new("color", "pink",  false, 50)
+      builder << StyleProperty.new("color", "red",   false, 50)
+      builder << StyleProperty.new("color", "green", false, 50)
+
+      builder << StyleProperty.new("background", "white", false, 1)
+
+      expect(builder.attribute_string).to eq "background:white;color:green"
+    end
+
     it "removes duplicate properties" do
       builder = StyleAttributeBuilder.new
 
